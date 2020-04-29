@@ -81,7 +81,7 @@ SOURCES += main.cpp\
     GroPainter.cpp \
     Cell.cpp \
     reaction.cpp \
-    #Yeast.cpp
+    Yeast.cpp
 
 HEADERS  += gui.h \
     GroThread.h \
