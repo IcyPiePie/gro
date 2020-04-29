@@ -21,7 +21,7 @@ include standard
 
 // Cell types
 internal unit ecoli ( [ ... ], 'a ) "ecoli";
-// internal unit yeast ( [ ... ], 'a ) "yeast";
+internal unit yeast ( [ ... ], 'a ) "yeast";
 
 // Signals
 internal int signal ( real, real ) "signal";
