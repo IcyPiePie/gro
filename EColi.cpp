@@ -41,7 +41,8 @@ EColi::EColi ( World * w, float x, float y, float a, float v ) : Cell ( w ), vol
   body->p = cpv ( x, y );
   body->v = cpv ( 0, 0 );
   body->a = a;
-        
+  body->m = 1000;
+
   shape = cpSpaceAddShape(space, cpPolyShapeNew(body, 8, verts, cpvzero)); // deleted in ~Cell
   shape->e = ELASTIC; shape->u = FRICTION;
 
@@ -135,7 +136,7 @@ EColi * EColi::divide ( void ) {
     float a = shape->body->a;
     float da = 0.25 * (frand()-0.5);
 
-    float size = DEFAULT_ECOLI_SCALE * get_length();    
+    float size = DEFAULT_ECOLI_SCALE * get_length();
     MAKE_VERTS;
 
     cpPolyShapeSetVerts ( shape, 8, verts, cpvzero );
@@ -146,9 +147,9 @@ EColi * EColi::divide ( void ) {
 
     float dvol = (1-frac)*oldvol;
 
-    EColi * daughter = new EColi ( world, oldpos.x + r*0.5*oldsize*frac*cos ( a + r*da ), 
+    EColi * daughter = new EColi ( world, oldpos.x + r*0.5*oldsize*frac*cos ( a + r*da ),
                                  oldpos.y + r*0.5*oldsize*frac*sin ( a + r*da ), a+r*da, dvol );
- 
+
 
     daughter->set_param_map ( get_param_map() );
     daughter->compute_parameter_derivatives();
