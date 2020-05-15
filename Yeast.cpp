@@ -1,21 +1,21 @@
 /////////////////////////////////////////////////////////////////////////////////////////
-// 
+//
 // gro is protected by the UW OPEN SOURCE LICENSE, which is summarized here.
 // Please see the file LICENSE.txt for the complete license.
-// 
+//
 // THE SOFTWARE (AS DEFINED BELOW) AND HARDWARE DESIGNS (AS DEFINED BELOW) IS PROVIDED
 // UNDER THE TERMS OF THIS OPEN SOURCE LICENSE (“LICENSE”).  THE SOFTWARE IS PROTECTED
 // BY COPYRIGHT AND/OR OTHER APPLICABLE LAW.  ANY USE OF THIS SOFTWARE OTHER THAN AS
 // AUTHORIZED UNDER THIS LICENSE OR COPYRIGHT LAW IS PROHIBITED.
-// 
+//
 // BY EXERCISING ANY RIGHTS TO THE SOFTWARE AND/OR HARDWARE PROVIDED HERE, YOU ACCEPT AND
 // AGREE TO BE BOUND BY THE TERMS OF THIS LICENSE.  TO THE EXTENT THIS LICENSE MAY BE
 // CONSIDERED A CONTRACT, THE UNIVERSITY OF WASHINGTON (“UW”) GRANTS YOU THE RIGHTS
 // CONTAINED HERE IN CONSIDERATION OF YOUR ACCEPTANCE OF SUCH TERMS AND CONDITIONS.
-//  
+//
 // TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
-// 
-// 
+//
+//
 
 #include "Yeast.h"
 #include "Programs.h"
@@ -30,9 +30,10 @@ Yeast::Yeast ( World * w, float x, float y, float a, float v, bool b )
   body->p = cpv ( x, y );
   body->v = cpv ( 0, 0 );
   body->a = a;
+  body->m = 1;
 
   shape = cpSpaceAddShape(space, cpCircleShapeNew(body, radius(), cpvzero));
-  shape->e = ELASTIC; shape->u = FRICTION; 
+  shape->e = ELASTIC; shape->u = FRICTION;
 
   int i;
   for ( i=0; i<MAX_STATE_NUM; i++ ) q[i] = 0;
@@ -81,7 +82,7 @@ void Yeast::render ( Theme * theme, GroPainter * painter  ) {
 
   painter->drawEllipse(center,r,r);
 
-  if ( bud ) 
+  if ( bud )
     bud->render ( theme,painter );
 
   return;
@@ -138,7 +139,7 @@ Yeast * Yeast::divide ( void ) {
         bud->set_rep ( i, (int) ceil ( (1-frac)*temp ) );
       }
 
-      if ( gro_program != NULL ) 
+      if ( gro_program != NULL )
         bud->set_gro_program ( split_gro_program ( gro_program, frac ) );
 
       bud->set_bud ( false );
