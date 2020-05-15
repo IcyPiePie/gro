@@ -111,7 +111,7 @@ void Bistable_Program::destroy ( World * ) {
 #undef X2
 #undef RED
 #undef GREEN
-#undef RATE1 
+#undef RATE1
 #undef RATE2
 #undef DEG1
 #undef DEG2
@@ -179,10 +179,10 @@ void LeaderElection::update ( World * world, Cell * cell ) {
 
   if ( Q0 == 0 && Q1 == 0 ) { // Undecided
 
-    if ( a > 0.05 ) 
+    if ( a > 0.05 )
       cell->set(0,100);
-    else if ( frand() < 0.004 ) 
-      cell->set(1,100);    
+    else if ( frand() < 0.004 )
+      cell->set(1,100);
 
   } else if ( Q0 > 0 && Q1 == 0 ) { // Follower
 
@@ -199,7 +199,7 @@ void LeaderElection::update ( World * world, Cell * cell ) {
     printf ( "oops\n" );
 
   }
- 
+
   cell->set_rep ( GFP, Q0>0?500:0 );
   cell->set_rep ( RFP, Q1>0?500:0 );
 
