@@ -41,7 +41,7 @@ EColi::EColi ( World * w, float x, float y, float a, float v ) : Cell ( w ), vol
   body->p = cpv ( x, y );
   body->v = cpv ( 0, 0 );
   body->a = a;
-  body->m = 1000;
+  // body->m = 1;
 
   shape = cpSpaceAddShape(space, cpPolyShapeNew(body, 8, verts, cpvzero)); // deleted in ~Cell
   shape->e = ELASTIC; shape->u = FRICTION;

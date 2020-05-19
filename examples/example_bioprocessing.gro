@@ -1,0 +1,30 @@
+include gro
+set_theme ( bright_theme << [ signals := { { 1,0,0 }, { 0,1,0 } , { 0,0,1 } } ] );
+
+biomass := signal(0, 0);
+enzyme := signal(4,0.3);
+food := signal(5, 0.1);
+
+reaction({biomass,enzyme},{food,enzyme},5);
+set("ecoli_growth_rate",0.0);
+
+program bioprocessor() := {
+ true : {
+ set("ecoli_growth_rate",get_signal(food)),
+ emit_signal(enzyme,1)
+ }
+};
+
+program main() := {
+ t := 0;
+ m := get_signal_total(biomass);
+ true: {
+   t := t + dt;
+   m := get_signal_total(biomass);
+   print (m);
+ }
+ foreach i in range 500 do {
+ set_signal(biomass,rand(300),(rand(500)-250),10)
+ } end;
+};
+ecoli ( [], program bioprocessor() );

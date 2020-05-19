@@ -332,6 +332,28 @@ Value * get_signal_matrix ( std::list<Value *> * args, Scope * s ) {
 
 }
 
+Value * get_signal_total ( std::list<Value *> * args, Scope * s ) {
+
+  World * world = current_gro_program->get_world();
+  std::list<Value *>::iterator a = args->begin();
+
+  int signal_index = (*a)->int_value();
+  std::vector< std::vector<float> > * sm = world->get_signal_matrix(signal_index);
+
+  float mt;
+  mt = 0;
+  int i, j;
+
+  for ( i=0; i < sm->size(); i++ ) {
+      for ( j=0; j != (*sm)[i].size(); j++ ) {
+          mt += ( float ( (*sm)[i][j] ) );
+      }
+  }
+
+  return new Value (mt);
+
+}
+
 /////////////////////////////////////////////////////////////////////////////////////////////
 // CELL SPECIFIC (EXCEPT SIGNALLING)
 // INTERNAL GRO FUNCTIONS
@@ -1023,6 +1045,7 @@ void register_gro_functions ( void ) {
   register_ccl_function ( "absorb_signal", absorb_signal );
   register_ccl_function ( "reaction",      add_reaction );
   register_ccl_function ( "get_signal_matrix", get_signal_matrix );
+  register_ccl_function ( "get_signal_total", get_signal_total );
 
   // World control
   register_ccl_function ( "reset",          reset );

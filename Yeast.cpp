@@ -30,7 +30,7 @@ Yeast::Yeast ( World * w, float x, float y, float a, float v, bool b )
   body->p = cpv ( x, y );
   body->v = cpv ( 0, 0 );
   body->a = a;
-  body->m = 1;
+  // body->m = 1;
 
   shape = cpSpaceAddShape(space, cpCircleShapeNew(body, radius(), cpvzero));
   shape->e = ELASTIC; shape->u = FRICTION;
